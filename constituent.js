@@ -12,7 +12,7 @@ function title(text) {
 function generateSummary() {
 	const tile = Array.from(document.querySelectorAll("app-constituent-summary-tile"))[0];
 	const data = new Map(Array.from(tile.querySelectorAll("sky-definition-list-content")).map((it) => {return it.innerText.split("\n");}));
-	return paragraph(data.get("Position") + " at " + data.get("Name");
+	return paragraph(data.get("Position") + " at " + data.get("Name"));
 }
 function generateTitle() {
 	const userName = Array.from(document.querySelectorAll("sky-page-summary-title"))[0].innerText.trim();
@@ -31,16 +31,17 @@ function getNotes() {
 	const noteSection = Array.from(document.querySelectorAll('.notes-tile.sky-tile-parent'))[0];
 	const items = Array.from(noteSection.querySelectorAll("sky-repeater-item"));
 	const titleBars = items.map((it) => {return it.querySelectorAll("sky-repeater-item-title")[0];});
-	const sources = titleBars.map((it) => {return it.querySelectorAll("strong")[0].innerText.trim();});	
+	const sources = titleBars.map((it) => {return it.querySelectorAll("strong")[0].innerText.trim();});
 	const dates = titleBars.map((it) => {return it.querySelectorAll("span")[0].innerText.trim();});
 	const texts = items.map((it) => {return it.querySelectorAll("sky-repeater-item-content")[0].innerText.trim();});
-	return new docx.Paragraph({children: 
+	return new docx.Paragraph({children:
 		sources.map((it, i) => {
 			new docx.TextRun(it + ": " + dates[i] + "\n" + texts[i])
 		})
 	});
 }
 if (isConstituentRecordPage()) {
+	console.log("running...");
 	const doc = new docx.Document({
 		sections: [{
 			properties: {},
