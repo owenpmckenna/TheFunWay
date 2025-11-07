@@ -1,0 +1,12 @@
+{
+	"manifest_version" : 3,
+	"name" : "onepager",
+	"version": "v0.1",
+	"permissions": ["scripting", "activeTab"],
+	"host_permissions": ["*://host.nxt.blackbaud.com/*"],
+	"content_scripts": [{
+		"matches": "*://host.nxt.blackbaud.com/*",
+		"js": ["filesaver.js", "docx.js", "constituent.js"]
+	}]
+}
+
