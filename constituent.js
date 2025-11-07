@@ -1,6 +1,6 @@
 function isConstituentRecordPage() {
   const regex = /^https:\/\/host\.nxt\.blackbaud\.com\/constituent\/records\/\d+$/;
-  return regex.test(window.location.href);
+  return regex.test(document.location.origin + document.location.pathname);
 }
 function paragraph(text) {
 	return new docx.Paragraph({text: text});
@@ -12,10 +12,12 @@ function title(text) {
 function generateSummary() {
 	const tile = Array.from(document.querySelectorAll("app-constituent-summary-tile"))[0];
 	const data = new Map(Array.from(tile.querySelectorAll("sky-definition-list-content")).map((it) => {return it.innerText.split("\n");}));
+	console.log("Position: " + data.get("Position"))
 	return paragraph(data.get("Position") + " at " + data.get("Name"));
 }
 function generateTitle() {
 	const userName = Array.from(document.querySelectorAll("sky-page-summary-title"))[0].innerText.trim();
+	console.log("name: " + userName);
 	return title(userName);
 }
 function getUserRoles() {
@@ -40,7 +42,7 @@ function getNotes() {
 		})
 	});
 }
-if (isConstituentRecordPage()) {
+function run() {
 	console.log("running...");
 	const doc = new docx.Document({
 		sections: [{
@@ -60,3 +62,7 @@ if (isConstituentRecordPage()) {
 	});
 }
 
+if (isConstituentRecordPage()) {
+	console.log("waiting...");
+	setTimeout(run, 20000);
+}
