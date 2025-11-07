@@ -5,7 +5,7 @@
 	"permissions": ["scripting", "activeTab"],
 	"host_permissions": ["*://host.nxt.blackbaud.com/*"],
 	"content_scripts": [{
-		"matches": "*://host.nxt.blackbaud.com/*",
+		"matches": ["*://host.nxt.blackbaud.com/*"],
 		"js": ["filesaver.js", "docx.js", "constituent.js"]
 	}]
 }
